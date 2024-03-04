@@ -38,34 +38,40 @@ public class TestDataUtilities {
                 .build();
     }
 
-    public static ProjectEntity createTestTaskEntityA(){
+    public static ProjectEntity createProjectEntityA(){
         LocalDate date = LocalDate.of(2025, 1, 1);
         return ProjectEntity.builder()
                 .projectId(1L)
                 .projectTitle("Taskify")
                 .projectDescription("Task Management Application")
                 .projectDueDate(date)
-                .workersAssignedToThisProject(null)
+                .workersAssignedToThisProject(
+                        new HashSet<>()
+                )
                 .build();
     }
-    public static ProjectEntity createTestTaskEntityB(){
+    public static ProjectEntity createProjectEntityB(){
         LocalDate date = LocalDate.of(2025, 2, 2);
         return ProjectEntity.builder()
                 .projectId(2L)
                 .projectTitle("FitBuddy")
                 .projectDescription("Physical Activity Monitoring App")
                 .projectDueDate(date)
-                .workersAssignedToThisProject(null)
+                .workersAssignedToThisProject(
+                        new HashSet<>()
+                )
                 .build();
     }
-    public static ProjectEntity createTestTaskEntityC(){
+    public static ProjectEntity createProjectEntityC(){
         LocalDate date = LocalDate.of(2025, 3, 3);
         return ProjectEntity.builder()
                 .projectId(3L)
                 .projectTitle("Bookshelf")
                 .projectDescription("Book Collection Management App")
                 .projectDueDate(date)
-                .workersAssignedToThisProject(null)
+                .workersAssignedToThisProject(
+                        new HashSet<>()
+                )
                 .build();
     }
 
