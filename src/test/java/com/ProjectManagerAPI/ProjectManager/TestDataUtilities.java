@@ -39,7 +39,7 @@ public class TestDataUtilities {
     }
 
     public static ProjectEntity createProjectEntityA(){
-        LocalDate date = LocalDate.of(2025, 1, 1);
+        LocalDate date = LocalDate.of(2024, 1, 1); //THIS ONE IS OUTDATED
         return ProjectEntity.builder()
                 .projectId(1L)
                 .projectTitle("Taskify")

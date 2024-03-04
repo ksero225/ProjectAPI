@@ -3,6 +3,7 @@ package com.ProjectManagerAPI.ProjectManager.repositoriesTests;
 import com.ProjectManagerAPI.ProjectManager.TestDataUtilities;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
 import com.ProjectManagerAPI.ProjectManager.repositories.WorkerRepository;
+import org.glassfish.jaxb.core.v2.TODO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,8 @@ public class WorkerRepositoryIntegrationTests {
         assertThat(result).isEmpty();
     }
 
+    //This test below probably should be in controller tests (move it later)
+
     @Test
     public void testThatWorkerProjectHashSetIsEmpty() {
         //Create WorkerEntity, set its HashSet to empty (not null), then check if Entity is empty and present.
@@ -96,7 +99,6 @@ public class WorkerRepositoryIntegrationTests {
         underTestWorkerRepository.save(testWorkerEntityA);
 
         Optional<WorkerEntity> result = underTestWorkerRepository.findById(testWorkerEntityA.getWorkerId());
-
         assertThat(result).isPresent();
         assertThat(result.get().getProjectsAssignedToThisWorker()).isEmpty();
     }

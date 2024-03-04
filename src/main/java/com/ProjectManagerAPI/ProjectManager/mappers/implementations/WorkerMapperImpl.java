@@ -4,7 +4,9 @@ import com.ProjectManagerAPI.ProjectManager.domain.dto.WorkerDto;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
 import com.ProjectManagerAPI.ProjectManager.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WorkerMapperImpl implements Mapper<WorkerEntity, WorkerDto> {
 
     private final ModelMapper modelMapper;

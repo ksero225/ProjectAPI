@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -91,6 +92,8 @@ public class ProjectRepositoryIntegrationTests {
         assertThat(result).isEmpty();
     }
 
+    //This tests below probably should be in controller tests (move it later)
+
     @Test
     public void testThatProjectWorkersHashSetIsEmpty(){
         //Create ProjectEntity, set its HashSet to empty (not null), then check if Entity is empty and present.
@@ -101,5 +104,18 @@ public class ProjectRepositoryIntegrationTests {
         Optional<ProjectEntity> result = underTestsProjectRepository.findById(testProjectEntity.getProjectId());
         assertThat(result).isPresent();
         assertThat(result.get().getWorkersAssignedToThisProject()).isEmpty();
+    }
+
+    @Test
+    public void testThatProjectIsOutOfDate(){
+        //Create ProjectEntity, save it, get its dueDate and check if it's before today.
+        ProjectEntity testProjectEntity = TestDataUtilities.createProjectEntityA();
+        underTestsProjectRepository.save(testProjectEntity);
+
+        LocalDate today = LocalDate.now();
+        Optional<ProjectEntity> result = underTestsProjectRepository.findById(testProjectEntity.getProjectId());
+
+        assertThat(result).isPresent();
+        assertThat(result.get().getProjectDueDate()).isBefore(today);
     }
 }

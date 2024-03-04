@@ -11,7 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,5 +24,5 @@ public class ProjectDto {
     private String projectTitle;
     private String projectDescription;
     private LocalDate projectDueDate;
-    private List<WorkerEntity> workersAssignedToThisProject;
+    private Set<WorkerEntity> workersAssignedToThisProject;
 }

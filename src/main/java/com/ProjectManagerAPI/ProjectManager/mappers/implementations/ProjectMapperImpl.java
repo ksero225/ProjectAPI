@@ -4,7 +4,9 @@ import com.ProjectManagerAPI.ProjectManager.domain.dto.ProjectDto;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProjectMapperImpl implements Mapper<ProjectEntity, ProjectDto> {
 
     private final ModelMapper modelMapper;
