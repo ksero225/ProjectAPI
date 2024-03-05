@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProjectService {
     List<ProjectEntity> findAll();
+
+    ProjectEntity save(ProjectEntity projectEntity);
 }

@@ -18,6 +18,12 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectRepository = projectRepository;
     }
 
+
+    @Override
+    public ProjectEntity save(ProjectEntity projectEntity) {
+        return projectRepository.save(projectEntity);
+    }
+
     @Override
     public List<ProjectEntity> findAll() {
         return StreamSupport.stream(
