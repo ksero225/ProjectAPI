@@ -60,4 +60,13 @@ public class WorkerServiceImpl implements WorkerService {
                 ).collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteById(Long workerId) {
+        workerRepository.deleteById(workerId);
+    }
+
+    @Override
+    public boolean doesWorkerExists(Long workerId) {
+        return workerRepository.existsById(workerId);
+    }
 }

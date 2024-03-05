@@ -11,4 +11,8 @@ public interface WorkerService {
     WorkerEntity save(WorkerEntity workerEntity);
 
     Optional<WorkerEntity> findOne(Long workerId);
+
+    void deleteById(Long workerId);
+
+    boolean doesWorkerExists(Long workerId);
 }

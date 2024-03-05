@@ -11,4 +11,8 @@ public interface ProjectService {
     ProjectEntity save(ProjectEntity projectEntity);
 
     Optional<ProjectEntity> findOne(Long projectId);
+
+    void deleteById(Long projectId);
+
+    boolean doesProjectExists(Long projectId);
 }

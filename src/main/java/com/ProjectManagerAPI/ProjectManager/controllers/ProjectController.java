@@ -24,20 +24,20 @@ public class ProjectController {
     }
 
     @GetMapping(path = "/projects")
-    public List<ProjectDto> listProjects(){
+    public List<ProjectDto> listProjects() {
         List<ProjectEntity> projects = projectService.findAll();
         return projects.stream().map(projectMapper::mapTo).collect(Collectors.toList());
     }
 
     @PostMapping(path = "/projects")
-    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto){
+    public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
         ProjectEntity projectEntity = projectMapper.mapFrom(projectDto);
         ProjectEntity savedProjectEntity = projectService.save(projectEntity);
         return new ResponseEntity<>(projectMapper.mapTo(savedProjectEntity), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/projects/{projectId}")
-    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long projectId){
+    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long projectId) {
         Optional<ProjectEntity> foundProject = projectService.findOne(projectId);
         return foundProject.map(
                 ProjectEntity -> {
@@ -47,5 +47,28 @@ public class ProjectController {
         ).orElse(
                 new ResponseEntity<>(HttpStatus.NOT_FOUND)
         );
+    }
+
+    @PutMapping(path = "/projects/{projectId}")
+    public ResponseEntity<ProjectDto> fullUpdateProject(@PathVariable("projectId") Long projectId, @RequestBody ProjectDto projectDto) {
+
+        if (!projectService.doesProjectExists(projectId)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        projectDto.setProjectId(projectId);
+        ProjectEntity projectEntity = projectMapper.mapFrom(projectDto);
+        ProjectEntity savedProjectEntity = projectService.save(projectEntity);
+
+        return new ResponseEntity<>(
+                projectMapper.mapTo(savedProjectEntity),
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping(path = "/projects/{projectId}")
+    public ResponseEntity<Void> deleteProjectById(@PathVariable("projectId") Long projectId) {
+        projectService.deleteById(projectId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

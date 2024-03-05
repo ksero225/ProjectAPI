@@ -30,6 +30,9 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findById(projectId);
     }
 
+
+
+
     @Override
     public List<ProjectEntity> findAll() {
         return StreamSupport.stream(
@@ -37,5 +40,15 @@ public class ProjectServiceImpl implements ProjectService {
                         .findAll()
                         .spliterator(), false
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long projectId) {
+        projectRepository.deleteById(projectId);
+    }
+
+    @Override
+    public boolean doesProjectExists(Long projectId) {
+        return projectRepository.existsById(projectId);
     }
 }
