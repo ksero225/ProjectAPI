@@ -1,8 +1,29 @@
 package com.ProjectManagerAPI.ProjectManager.services.implementations;
 
+import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
+import com.ProjectManagerAPI.ProjectManager.repositories.ProjectRepository;
 import com.ProjectManagerAPI.ProjectManager.services.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
+
+    private final ProjectRepository projectRepository;
+
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
+
+    @Override
+    public List<ProjectEntity> findAll() {
+        return StreamSupport.stream(
+                projectRepository
+                        .findAll()
+                        .spliterator(), false
+        ).collect(Collectors.toList());
+    }
 }
