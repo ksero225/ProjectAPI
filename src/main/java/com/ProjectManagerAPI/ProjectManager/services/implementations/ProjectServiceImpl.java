@@ -6,6 +6,7 @@ import com.ProjectManagerAPI.ProjectManager.services.ProjectService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -22,6 +23,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectEntity save(ProjectEntity projectEntity) {
         return projectRepository.save(projectEntity);
+    }
+
+    @Override
+    public Optional<ProjectEntity> findOne(Long projectId) {
+        return projectRepository.findById(projectId);
     }
 
     @Override

@@ -26,5 +26,5 @@ public class ProjectEntity {
     private LocalDate projectDueDate;
 
     @ManyToMany(mappedBy = "projectsAssignedToThisWorker", fetch = FetchType.EAGER)
-    private HashSet<WorkerEntity> workersAssignedToThisProject = new HashSet<>();
+    private Set<WorkerEntity> workersAssignedToThisProject = new HashSet<>();
 }

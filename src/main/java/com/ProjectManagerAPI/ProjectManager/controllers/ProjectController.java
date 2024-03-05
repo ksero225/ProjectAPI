@@ -6,12 +6,10 @@ import com.ProjectManagerAPI.ProjectManager.mappers.Mapper;
 import com.ProjectManagerAPI.ProjectManager.services.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -36,5 +34,18 @@ public class ProjectController {
         ProjectEntity projectEntity = projectMapper.mapFrom(projectDto);
         ProjectEntity savedProjectEntity = projectService.save(projectEntity);
         return new ResponseEntity<>(projectMapper.mapTo(savedProjectEntity), HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/projects/{projectId}")
+    public ResponseEntity<ProjectDto> getProjectById(@PathVariable Long projectId){
+        Optional<ProjectEntity> foundProject = projectService.findOne(projectId);
+        return foundProject.map(
+                ProjectEntity -> {
+                    ProjectDto projectDto = projectMapper.mapTo(ProjectEntity);
+                    return new ResponseEntity<>(projectDto, HttpStatus.OK);
+                }
+        ).orElse(
+                new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
     }
 }
