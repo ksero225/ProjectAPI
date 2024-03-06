@@ -4,6 +4,8 @@ import com.ProjectManagerAPI.ProjectManager.domain.dto.ProjectDto;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.mappers.Mapper;
 import com.ProjectManagerAPI.ProjectManager.services.ProjectService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +26,9 @@ public class ProjectController {
     }
 
     @GetMapping(path = "/projects")
-    public List<ProjectDto> listProjects() {
-        List<ProjectEntity> projects = projectService.findAll();
-        return projects.stream().map(projectMapper::mapTo).collect(Collectors.toList());
+    public Page<ProjectDto> listProjects(Pageable pageable) {
+        Page<ProjectEntity> projects = projectService.findAll(pageable);
+        return projects.map(projectMapper::mapTo);
     }
 
     @PostMapping(path = "/projects")

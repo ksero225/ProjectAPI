@@ -6,6 +6,8 @@ import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
 import com.ProjectManagerAPI.ProjectManager.mappers.Mapper;
 import com.ProjectManagerAPI.ProjectManager.services.WorkerService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +30,9 @@ public class WorkerController {
     }
 
     @GetMapping(path = "/workers")
-    public List<WorkerDto> listWorkers() {
-        List<WorkerEntity> workers = workerService.findAll();
-        return workers
-                .stream()
-                .map(workerMapper::mapTo)
-                .collect(Collectors.toList());
+    public Page<WorkerDto> listWorkers(Pageable pageable) {
+        Page<WorkerEntity> workers = workerService.findAll(pageable);
+        return workers.map(workerMapper::mapTo);
     }
 
     @PostMapping(path = "/workers")
