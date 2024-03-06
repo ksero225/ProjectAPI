@@ -15,4 +15,6 @@ public interface ProjectService {
     void deleteById(Long projectId);
 
     boolean doesProjectExists(Long projectId);
+
+    ProjectEntity partialUpdate(Long projectId, ProjectEntity projectEntity);
 }

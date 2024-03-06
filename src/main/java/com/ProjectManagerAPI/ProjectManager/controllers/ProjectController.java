@@ -31,6 +31,8 @@ public class ProjectController {
 
     @PostMapping(path = "/projects")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
+
+        System.out.println(projectDto.getWorkersAssignedToThisProject());
         ProjectEntity projectEntity = projectMapper.mapFrom(projectDto);
         ProjectEntity savedProjectEntity = projectService.save(projectEntity);
         return new ResponseEntity<>(projectMapper.mapTo(savedProjectEntity), HttpStatus.CREATED);
@@ -64,6 +66,18 @@ public class ProjectController {
                 projectMapper.mapTo(savedProjectEntity),
                 HttpStatus.OK
         );
+    }
+
+    @PatchMapping(path = "/projects/{projectId}")
+    public ResponseEntity<ProjectDto> partialUpdateProject(@PathVariable("projectId") Long projectId, @RequestBody ProjectDto projectDto){
+        if(!projectService.doesProjectExists(projectId)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        ProjectEntity projectEntity = projectMapper.mapFrom(projectDto);
+        ProjectEntity savedProjectEntity = projectService.partialUpdate(projectId, projectEntity);
+
+        return new ResponseEntity<>(projectMapper.mapTo(savedProjectEntity), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/projects/{projectId}")

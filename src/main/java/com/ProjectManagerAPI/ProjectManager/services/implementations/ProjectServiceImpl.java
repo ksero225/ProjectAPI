@@ -31,8 +31,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-
-
     @Override
     public List<ProjectEntity> findAll() {
         return StreamSupport.stream(
@@ -40,6 +38,20 @@ public class ProjectServiceImpl implements ProjectService {
                         .findAll()
                         .spliterator(), false
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public ProjectEntity partialUpdate(Long projectId, ProjectEntity projectEntity) {
+        projectEntity.setProjectId(projectId);
+
+        return projectRepository.findById(projectId).map(existingProject -> {
+            Optional.ofNullable(projectEntity.getProjectTitle()).ifPresent(existingProject::setProjectTitle);
+            Optional.ofNullable(projectEntity.getProjectDescription()).ifPresent(existingProject::setProjectDescription);
+            Optional.ofNullable(projectEntity.getProjectDueDate()).ifPresent(existingProject::setProjectDueDate);
+            Optional.ofNullable(projectEntity.getWorkersAssignedToThisProject()).ifPresent(existingProject::setWorkersAssignedToThisProject);
+
+            return projectRepository.save(existingProject);
+        }).orElseThrow(() -> new RuntimeException("Project does not exists"));
     }
 
     @Override

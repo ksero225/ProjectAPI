@@ -15,4 +15,6 @@ public interface WorkerService {
     void deleteById(Long workerId);
 
     boolean doesWorkerExists(Long workerId);
+
+    WorkerEntity partialUpdate(Long workerId, WorkerEntity workerEntity);
 }

@@ -15,7 +15,5 @@ public class WorkerDto {
     private Long workerId;
     private String workerName;
     private String workerSurname;
-
-
     private Set<ProjectEntity> projectsAssignedToThisWorker;
 }

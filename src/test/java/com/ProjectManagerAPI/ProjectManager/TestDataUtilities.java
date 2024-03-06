@@ -1,5 +1,6 @@
 package com.ProjectManagerAPI.ProjectManager;
 
+import com.ProjectManagerAPI.ProjectManager.domain.dto.WorkerDto;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
 
@@ -17,6 +18,19 @@ public class TestDataUtilities {
                 )
                 .build();
     }
+
+
+    public static WorkerDto createTestWorkerDtoA(){
+        return WorkerDto.builder()
+                .workerId(1L)
+                .workerName("Pawel")
+                .workerSurname("Nowak")
+                .projectsAssignedToThisWorker(
+                        new HashSet<>()
+                )
+                .build();
+    }
+
     public static WorkerEntity createTestWorkerEntityB(){
         return WorkerEntity.builder()
                 .workerId(2L)

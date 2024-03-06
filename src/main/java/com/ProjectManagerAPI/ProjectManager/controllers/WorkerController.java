@@ -77,6 +77,20 @@ public class WorkerController {
         );
     }
 
+    @PatchMapping(path = "/workers/{workerId}")
+    public ResponseEntity<WorkerDto> partialUpdateWorker(@PathVariable("workerId") Long workerId, @RequestBody WorkerDto workerDto){
+        if(!workerService.doesWorkerExists(workerId)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        WorkerEntity workerEntity = workerMapper.mapFrom(workerDto);
+        WorkerEntity savedWorkerEntity = workerService.partialUpdate(workerId, workerEntity);
+        return new ResponseEntity<>(
+                workerMapper.mapTo(savedWorkerEntity),
+                HttpStatus.OK
+        );
+    }
+
     @DeleteMapping(path = "/workers/{workerId}")
     public ResponseEntity<Void> deleteWorkerById(@PathVariable("workerId") Long workerId) {
         workerService.deleteById(workerId);

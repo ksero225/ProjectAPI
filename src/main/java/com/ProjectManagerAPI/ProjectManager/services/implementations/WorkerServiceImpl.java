@@ -61,6 +61,19 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
+    public WorkerEntity partialUpdate(Long workerId, WorkerEntity workerEntity) {
+        workerEntity.setWorkerId(workerId);
+
+        return workerRepository.findById(workerId).map(existingWorker ->{
+            Optional.ofNullable(workerEntity.getWorkerName()).ifPresent(existingWorker::setWorkerName);
+            Optional.ofNullable(workerEntity.getWorkerSurname()).ifPresent(existingWorker::setWorkerSurname);
+            Optional.ofNullable(workerEntity.getProjectsAssignedToThisWorker()).ifPresent(existingWorker::setProjectsAssignedToThisWorker);
+
+            return workerRepository.save(existingWorker);
+        }).orElseThrow(() -> new RuntimeException("Worker does not exists"));
+    }
+
+    @Override
     public void deleteById(Long workerId) {
         workerRepository.deleteById(workerId);
     }
