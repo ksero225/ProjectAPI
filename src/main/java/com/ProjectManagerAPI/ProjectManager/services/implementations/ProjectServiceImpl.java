@@ -3,8 +3,6 @@ package com.ProjectManagerAPI.ProjectManager.services.implementations;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.repositories.ProjectRepository;
 import com.ProjectManagerAPI.ProjectManager.services.ProjectService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,19 +31,15 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
 
-//    @Override
-//    public List<ProjectEntity> findAll() {
-//        return StreamSupport.stream(
-//                projectRepository
-//                        .findAll()
-//                        .spliterator(), false
-//        ).collect(Collectors.toList());
-//    }
-
     @Override
-    public Page<ProjectEntity> findAll(Pageable pageable) {
-        return projectRepository.findAll(pageable);
+    public List<ProjectEntity> findAll() {
+        return StreamSupport.stream(
+                projectRepository
+                        .findAll()
+                        .spliterator(), false
+        ).collect(Collectors.toList());
     }
+
 
     @Override
     public ProjectEntity partialUpdate(Long projectId, ProjectEntity projectEntity) {

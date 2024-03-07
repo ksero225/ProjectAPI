@@ -5,8 +5,6 @@ import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
 import com.ProjectManagerAPI.ProjectManager.repositories.ProjectRepository;
 import com.ProjectManagerAPI.ProjectManager.repositories.WorkerRepository;
 import com.ProjectManagerAPI.ProjectManager.services.WorkerService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -52,20 +49,16 @@ public class WorkerServiceImpl implements WorkerService {
         return workerRepository.findById(workerId);
     }
 
-//    @Override
-//    public List<WorkerEntity> findAll() {
-//        return StreamSupport
-//                .stream(
-//                        workerRepository
-//                                .findAll()
-//                                .spliterator(), false
-//                ).collect(Collectors.toList());
-//    }
-
     @Override
-    public Page<WorkerEntity> findAll(Pageable pageable) {
-        return workerRepository.findAll(pageable);
+    public List<WorkerEntity> findAll() {
+        return StreamSupport
+                .stream(
+                        workerRepository
+                                .findAll()
+                                .spliterator(), false
+                ).collect(Collectors.toList());
     }
+
 
     @Override
     public WorkerEntity partialUpdate(Long workerId, WorkerEntity workerEntity) {
