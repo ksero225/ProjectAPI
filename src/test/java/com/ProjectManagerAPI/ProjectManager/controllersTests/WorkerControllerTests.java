@@ -89,14 +89,14 @@ public class WorkerControllerTests {
     public void testThatListWorkersReturnsWorker() throws Exception{
         WorkerEntity workerEntity = TestDataUtilities.createTestWorkerEntityA();
         workerEntity.setWorkerId(null);
-
         workerService.save(workerEntity);
 
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/workers")
+                        .param("page", "0")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$[0].workerId").value(1L)
+                MockMvcResultMatchers.jsonPath("$.workers[0].workerId").value(1L)
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$[0].workerName").value("Pawel")
         ).andExpect(

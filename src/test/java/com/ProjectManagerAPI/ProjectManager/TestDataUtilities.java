@@ -1,5 +1,6 @@
 package com.ProjectManagerAPI.ProjectManager;
 
+import com.ProjectManagerAPI.ProjectManager.domain.dto.ProjectDto;
 import com.ProjectManagerAPI.ProjectManager.domain.dto.WorkerDto;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.ProjectEntity;
 import com.ProjectManagerAPI.ProjectManager.domain.entities.WorkerEntity;
@@ -64,6 +65,20 @@ public class TestDataUtilities {
                 )
                 .build();
     }
+
+    public static ProjectDto createProjectDtoA(){
+        LocalDate date = LocalDate.of(2024, 1, 1); //THIS ONE IS OUTDATED
+        return ProjectDto.builder()
+                .projectId(1L)
+                .projectTitle("Taskify")
+                .projectDescription("Task Management Application")
+                .projectDueDate(date)
+                .workersAssignedToThisProject(
+                        new HashSet<>()
+                )
+                .build();
+    }
+
     public static ProjectEntity createProjectEntityB(){
         LocalDate date = LocalDate.of(2025, 2, 2);
         return ProjectEntity.builder()
